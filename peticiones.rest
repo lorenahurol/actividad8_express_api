@@ -5,9 +5,34 @@
 ### AUTORES
 GET {{HOST}}/api/autores
 ###
+GET {{HOST}}/api/autores/12
+###
 POST {{HOST}}/api/autores
+Content-Type: application/json
+
+{
+    "nombre": "Lola",
+    "email": "email",
+    "imagen": "imagen"
+
+}
 
 ### POSTS
 GET {{HOST}}/api/posts
 ###
+GET {{HOST}}/api/posts/25
+Content-Type: application/json
+###
+GET {{HOST}}/api/posts/12
+Content-Type: application/json
+###
 POST {{HOST}}/api/posts
+Content-Type: application/json
+
+{
+    "titulo": "title",
+    "descripcion": "descripcion",
+    "fecha_creacion": "fecha de creacion",
+    "categoria": "categoria",
+    "autor": "autor"
+}

@@ -2,11 +2,12 @@
 
 const router = require("express").Router();
 
-const { getAllAutores, createAutor } = require("../../controllers/autores.controller");
+const { getAllAuthors, createAuthor, getAuthorById } = require("../../controllers/autores.controller");
 
 // Mapeo: Las peticiones GET y POST sobre la url api/autores, la gestiona el controlador:
-router.get("/", getAllAutores);
-router.post("/", createAutor);
+router.get("/", getAllAuthors);
+router.get("/:autor_id", getAuthorById);
+router.post("/", createAuthor);
 
 
 
