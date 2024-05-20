@@ -3,26 +3,39 @@
 // Importar el modelo:
 const Autores = require("../models/autores.model");
 
-const getAllAuthors = async (req, res) => {
+const getAllAuthors = async (req, res, next) => {
     try {
         const [result] = await Autores.selectAll();
         res.json(result); 
-    } catch (error) {
-        res.status(500).json({ error: err.message });
+    } catch (err) {
+        next(err);
     } 
 }
 
-const getAuthorById = async (req, res) => {
-    //req.params: datos dinamicos de la url (id);
-    const [result] = await Autores.selectById(req.params.autor_id);
-    res.json(result);
-    
+const getAuthorById = async (req, res, next) => {
+    try {
+        //req.params: datos dinamicos de la url (id);
+        const [result] = await Autores.selectById(req.params.autor_id);
+        if (result.length === 0) {
+        return res.status(404).json({
+            error: "Autor no encontrado"
+            })
+        }
+        res.json(result[0]);
+    } catch (err) {
+        next(err);
+    } 
 }
 
-const createAuthor = (req, res) => {
-    const body = req.body;
-    console.log(body);
-    res.send("Creamos un nuevo autor");
+const createAuthor = async (req, res) => {
+    // *** REVISAR *** //
+    try {
+        const [result] = await Autores.insert(req.body);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+    
 }
 
 

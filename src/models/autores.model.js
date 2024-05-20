@@ -9,8 +9,12 @@ const selectById = (autorId) => {
     return db.query("SELECT * FROM autores WHERE id = ?", [autorId]);
 }
 
+const insert = ({ nombre, email, imagen }) => {
+    return db.query("INSERT INTO autores (nombre, email, imagen) VALUES (?, ?, ?)", [nombre, email, imagen]);
+
+}
 
 // Exports:
 module.exports = {
-    selectAll, selectById
+    selectAll, selectById, insert
 }

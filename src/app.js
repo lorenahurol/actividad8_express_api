@@ -11,9 +11,15 @@ app.use(express.json());
 
 /***
 // Middlewares:
+***/
 
 // Error handler:
-***/
+app.use((err, req, res, next) => {
+    res.status(500).json({
+        error: err.message
+    });
+});
+
 
 // Middleware Fecha Actual:
 app.use((req, res, next) => {
@@ -21,7 +27,7 @@ app.use((req, res, next) => {
     console.log(currentDate);
     req.currentDate = currentDate;
     next();
-})
+});
 
 
 

@@ -12,8 +12,8 @@ Content-Type: application/json
 
 {
     "nombre": "Lola",
-    "email": "email",
-    "imagen": "imagen"
+    "email": "lolahuerta@gmail.com",
+    "imagen": "http://imagen/profile.com"
 
 }
 
