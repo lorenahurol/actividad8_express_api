@@ -9,6 +9,8 @@ const app = require("./src/app");
 // Config:
     // Config .env:
     require("dotenv").config();
+    // Condfig db:
+    require("./src/config/db");
 
 // Crear el servidor, con las rutas recogidas de app.js:
 const server = http.createServer(app);
@@ -19,3 +21,4 @@ server.listen(PORT);
 server.on("listening", () => {
     console.log(`Servidor escuchando en ${PORT}`);
 })
+

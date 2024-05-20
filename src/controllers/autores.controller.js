@@ -1,17 +1,27 @@
 // Controladores: Funciones que responden a nuestras rutas para autores.
-const getAllAuthors = (req, res) => {
-    res.send("Se recuperan todos los autores CONTROLLER");
+
+// Importar el modelo:
+const Autores = require("../models/autores.model");
+
+const getAllAuthors = async (req, res) => {
+    try {
+        const [result] = await Autores.selectAll();
+        res.json(result); 
+    } catch (error) {
+        res.status(500).json({ error: err.message });
+    } 
 }
 
-const getAuthorById = (req, res) => {
-    //req.params: datos dinamicos de la url (id):
-    const { autor_id } = req.params;
-    console.log(autor_id);
-    res.send("Se recupera el autor por id");
+const getAuthorById = async (req, res) => {
+    //req.params: datos dinamicos de la url (id);
+    const [result] = await Autores.selectById(req.params.autor_id);
+    res.json(result);
+    
 }
 
 const createAuthor = (req, res) => {
-    console.log(req.body);
+    const body = req.body;
+    console.log(body);
     res.send("Creamos un nuevo autor");
 }
 

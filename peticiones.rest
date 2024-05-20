@@ -5,7 +5,7 @@
 ### AUTORES
 GET {{HOST}}/api/autores
 ###
-GET {{HOST}}/api/autores/12
+GET {{HOST}}/api/autores/3
 ###
 POST {{HOST}}/api/autores
 Content-Type: application/json

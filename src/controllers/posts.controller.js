@@ -17,7 +17,8 @@ const getPostsByAuthor = (req, res) => {
 }
 
 const createPost = (req, res) => {
-    console.log(req.body);
+    const body = req.body;
+    console.log(body);
     console.log(req.currentDate);
     res.send("Se crea un nuevo post");
     
