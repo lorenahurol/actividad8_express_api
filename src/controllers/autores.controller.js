@@ -27,15 +27,15 @@ const getAuthorById = async (req, res, next) => {
     } 
 }
 
-const createAuthor = async (req, res) => {
-    // *** REVISAR *** //
+const createAuthor = async (req, res, next) => {
     try {
         const [result] = await Autores.insert(req.body);
-        res.json(result);
+        // Res: Datos del nuevo autor:
+        const [[newAuthor]] = await Autores.selectById(result.insertId);
+        res.json(newAuthor);
     } catch (err) {
         next(err);
     }
-    
 }
 
 

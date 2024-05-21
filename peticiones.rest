@@ -5,14 +5,14 @@
 ### AUTORES
 GET {{HOST}}/api/autores
 ###
-GET {{HOST}}/api/autores/3
+GET {{HOST}}/api/autores/2
 ###
 POST {{HOST}}/api/autores
 Content-Type: application/json
 
 {
-    "nombre": "Lola",
-    "email": "lolahuerta@gmail.com",
+    "nombre": "Carla",
+    "email": "carlarueda@gmail.com",
     "imagen": "http://imagen/profile.com"
 
 }
@@ -20,19 +20,20 @@ Content-Type: application/json
 ### POSTS
 GET {{HOST}}/api/posts
 ###
-GET {{HOST}}/api/posts/25
+GET {{HOST}}/api/posts/1
 Content-Type: application/json
 ###
-GET {{HOST}}/api/posts/12
+GET {{HOST}}/api/posts/2
 Content-Type: application/json
 ###
 POST {{HOST}}/api/posts
 Content-Type: application/json
 
 {
-    "titulo": "title",
+    "titulo": "title09",
     "descripcion": "descripcion",
     "fecha_creacion": "fecha de creacion",
     "categoria": "categoria",
-    "autor": "autor"
+    "autor": "autor",
+    "FK_autor_id": 2
 }

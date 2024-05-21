@@ -1,26 +1,58 @@
 // Controladores: Funciones que responden a nuestras rutas para posts.
-const getAllPosts = (req, res) => {
-    res.send("Se recuperan todos los posts");
+
+// Importar el modelo de Posts:
+const Posts = require("../models/posts.model");
+
+const getAllPosts = async (req, res, next) => {
+    try {
+        const [result] = await Posts.selectAll();
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
 }
 
-const getPostById = (req, res) => {
-    const { post_id } = req.params;
-    console.log(post_id);
-    res.send("Se recupera un post por Id");
+// Obtener post por ID:
+const getPostById = async (req, res, next) => {
+    try {
+        const [result] = await Posts.selectById(req.params.post_id);
+            if (result.length === 0) {
+                return res.status(404).json({
+                    error: "Post no encontrado"
+                })
+            }
+            res.json(result[0]);
+        } catch (err) {
+            next(err);
+        }
 }
 
-// ** REVISAR ** //
-const getPostsByAuthor = (req, res) => {
-    const { autor_id } = req.body;
-    console.log(autor_id);
-    res.send("Recuperamos todos los posts de un autor");
+// Obtener todos los posts de un autor a través de su ID:
+const getPostsByAuthor = async (req, res, next) => {
+    try {
+        const [result] = await Posts.selectByAuthorId(req.params.autor_id);
+            if (result.length === 0) {
+                return res.status(404).json({
+                    error: "No se encuentran posts para ese autor"
+                })
+            }
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
 }
 
-const createPost = (req, res) => {
-    const body = req.body;
-    console.log(body);
-    console.log(req.currentDate);
-    res.send("Se crea un nuevo post");
+const createPost = async (req, res, next) => {
+    try {
+        // Extraer los datos necesarios de req.body:
+        const { titulo, descripcion, categoria, FK_autor_id } = req.body;
+        const [result] = await Posts.insert({ titulo, descripcion, categoria, FK_autor_id });
+        // Res: Datos del nuevo post:
+        const [[newPost]] = await Posts.selectById(result.insertId);
+        res.json(newPost);
+    } catch (err) {
+        next(err);
+    }
     
 }
 

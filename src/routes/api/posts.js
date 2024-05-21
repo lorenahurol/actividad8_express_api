@@ -7,7 +7,8 @@ const { getAllPosts, getPostById, getPostsByAuthor, createPost } = require("../.
 // Mapeo:
 router.get("/", getAllPosts);
 router.get("/:post_id", getPostById);
-router.get("/:autor_id", getPostsByAuthor);
+// *** REVISAR: URL ecuperar los diferentes posts escritos por un autor en concreto *** //
+router.get("/posts/autores/:autor_id", getPostsByAuthor);
 router.post("/", createPost);
 
 
