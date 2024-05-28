@@ -2,7 +2,7 @@
 
 @HOST = http://localhost:{{PORT}}
 
-### AUTORES
+### AUTORES: Obtención y creación
 GET {{HOST}}/api/autores
 ###
 GET {{HOST}}/api/autores/2
@@ -11,13 +11,30 @@ POST {{HOST}}/api/autores
 Content-Type: application/json
 
 {
-    "nombre": "Carla",
+    "nombre": "Juan Perez",
+    "email": "juanperez@gmail.com",
+    "imagen": "http://imagen/profile1.com"
+
+}
+
+### AUTORES: Actualización y borrado
+###
+PUT {{HOST}}/api/autores/5
+Content-Type: application/json
+
+{
+    "nombre": "Carla Rueda",
     "email": "carlarueda@gmail.com",
     "imagen": "http://imagen/profile.com"
 
 }
 
-### POSTS
+###
+DELETE {{HOST}}/api/autores/7
+
+### ------------------------------------------------------- ###
+
+### POSTS: Obtención y Creación
 GET {{HOST}}/api/posts
 ###
 GET {{HOST}}/api/posts/1
