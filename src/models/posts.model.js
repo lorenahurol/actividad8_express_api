@@ -27,7 +27,7 @@ const selectByAuthorId = (autorId) => {
         FROM posts AS p
         INNER JOIN autores AS a
         ON p.FK_autor_id = a.id
-        WHERE p.id = ?`,
+        WHERE a.id = ?`,
         [autorId]);
 
 }
@@ -35,8 +35,8 @@ const selectByAuthorId = (autorId) => {
 // Crear Post:
 const insert = ({ titulo, descripcion, categoria, FK_autor_id }) => {
     return db.query(`
-        INSERT INTO posts (titulo, descripcion, fecha_creacion, categoria, FK_autor_id)
-        VALUES(?, ?, NOW(), ?, ?)
+        INSERT INTO posts (titulo, descripcion, categoria, FK_autor_id)
+        VALUES(?, ?, ?, ?)
     `, [titulo, descripcion, categoria, FK_autor_id]);
 }
 

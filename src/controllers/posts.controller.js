@@ -47,6 +47,11 @@ const createPost = async (req, res, next) => {
         // Extraer los datos necesarios de req.body:
         const { titulo, descripcion, categoria, FK_autor_id } = req.body;
         const [result] = await Posts.insert({ titulo, descripcion, categoria, FK_autor_id });
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    error: "Error al crear el post"
+                })
+            }
         // Res: Datos del nuevo post:
         const [[newPost]] = await Posts.selectById(result.insertId);
         res.json(newPost);
