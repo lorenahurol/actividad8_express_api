@@ -9,7 +9,7 @@ const Autores = require("../models/autores.model");
 const getAllAuthors = async (req, res, next) => {
     try {
         const [result] = await Autores.selectAll();
-        res.json(result); 
+        res.status(200).json(result); 
     } catch (err) {
         next(err);
     } 
@@ -25,7 +25,7 @@ const getAuthorById = async (req, res, next) => {
                 error: "Autor no encontrado"
                 })
             }
-        res.json(result[0]);
+        res.status(200).json(result[0]);
     } catch (err) {
         next(err);
     } 
@@ -54,7 +54,7 @@ const createAuthor = async (req, res, next) => {
             }
         // Res: Datos del nuevo autor:
         const [[newAuthor]] = await Autores.selectById(result.insertId);
-        res.json(newAuthor);
+        res.status(201).json(newAuthor);
     } catch (err) {
         next(err);
     }
@@ -72,7 +72,7 @@ const updateAuthor = async (req, res, next) => {
             if (result.affectedRows === 0) {
                 return res.status(500).json({ error: "Error al actualizar el autor" });
             }
-        res.json({ message: "Autor actualizado correctamente" });
+        res.status(200).json({ message: "Autor actualizado correctamente" });
     } catch (err) {
         next(err);
     }
@@ -85,7 +85,7 @@ const deleteAuthor = async (req, res, next) => {
             if (result.affectedRows === 0) {
                 return res.status(500).json({ error: "Error al borrar el autor" });
             }
-        res.json({ message: "Autor eliminado correctamente" });
+        res.status(200).json({ message: "Autor eliminado correctamente" });
     } catch (err) {
         next(err);
     }

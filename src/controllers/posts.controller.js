@@ -8,7 +8,7 @@ const Posts = require("../models/posts.model");
 const getAllPosts = async (req, res, next) => {
     try {
         const [result] = await Posts.selectAll();
-        res.json(result);
+        res.status(200).json(result);
     } catch (err) {
         next(err);
     }
@@ -23,7 +23,7 @@ const getPostById = async (req, res, next) => {
                     error: "Post no encontrado"
                 })
             }
-            res.json(result[0]);
+            res.status(200).json(result[0]);
         } catch (err) {
             next(err);
         }
@@ -38,7 +38,7 @@ const getPostsByAuthor = async (req, res, next) => {
                     error: "No se encuentran posts para ese autor"
                 })
             }
-        res.json(result);
+        res.status(200).json(result);
     } catch (err) {
         next(err);
     }
@@ -70,7 +70,7 @@ const createPost = async (req, res, next) => {
             }
         // Res: Datos del nuevo post:
         const [[newPost]] = await Posts.selectById(result.insertId);
-        res.json(newPost);
+        res.status(201).json(newPost);
     } catch (err) {
         next(err);
     }  
@@ -87,7 +87,7 @@ const updatePost = async (req, res, next) => {
             if (result.affectedRows === 0) {
                 return res.status(500).json({ error: "Error al actualizar el post" });
             }
-        res.json({ message: "Post actualizado correctamente"});
+        res.status(200).json({ message: "Post actualizado correctamente"});
     } catch (err) {
         next(err);
     }
@@ -100,10 +100,9 @@ const deletePost = async (req, res, next) => {
 
         const [result] = await Posts.deleteById(postId);
             if (result.affectedRows === 0) {
-                    return res.status(404).json({ error: "No se encontró el post indicado para eliminar" });
+                    return res.status(500).json({ error: "Error al eliminar el post" });
         }
-        res.json({ message: "Post eliminado correctamente "})
-        
+        res.status(200).json({ message: "Post eliminado correctamente "})      
     } catch (err) {
         next(err);
     }

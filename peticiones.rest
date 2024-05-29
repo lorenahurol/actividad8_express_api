@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
     "nombre": "Clara Ramos",
-    "email": "clara2@gmail.com",
+    "email": "clara3@gmail.com",
     "imagen": "http://imagen/profile15.com"
 
 }
