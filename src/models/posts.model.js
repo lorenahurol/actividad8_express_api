@@ -12,6 +12,7 @@ const selectAll = () => {
         FROM posts AS p
         INNER JOIN autores AS a
         ON p.FK_autor_id = a.id
+        ORDER BY p.id ASC
     `);
 }
 

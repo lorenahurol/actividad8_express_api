@@ -10,6 +10,11 @@ const selectById = (autorId) => {
     return db.query("SELECT * FROM autores WHERE id = ?", [autorId]);
 }
 
+// Extra: selectByEmail para validacion (evitar insertar usuarios duplicados):
+const selectByEmail = (autorEmail) => {
+    return db.query("SELECT * FROM autores WHERE email = ?", [autorEmail]);
+}
+
 const insert = ({ nombre, email, imagen }) => {
     return db.query("INSERT INTO autores (nombre, email, imagen) VALUES (?, ?, ?)", [nombre, email, imagen]);
 
@@ -24,7 +29,8 @@ const deleteById = (autorId) => {
     return db.query("DELETE FROM autores WHERE id = ?", [autorId]);
 }
 
+
 // Exports:
 module.exports = {
-    selectAll, selectById, insert, updateById, deleteById
+    selectAll, selectById, insert, updateById, deleteById, selectByEmail
 }

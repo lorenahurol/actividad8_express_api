@@ -52,7 +52,7 @@ const createPost = async (req, res, next) => {
         const { titulo, descripcion, categoria, FK_autor_id } = req.body;
         const [result] = await Posts.insert({ titulo, descripcion, categoria, FK_autor_id });
             if (result.affectedRows === 0) {
-                return res.status(404).json({
+                return res.status(500).json({
                     error: "Error al crear el post"
                 })
             }
@@ -79,7 +79,7 @@ const updatePost = async (req, res, next) => {
 
         const [result] = await Posts.updateById(titulo, descripcion, categoria, postId);
             if (result.affectedRows === 0) {
-                return res.status(404).json({ error: "Error al actualizar el post" });
+                return res.status(500).json({ error: "Error al actualizar el post" });
             }
         res.json({ message: "Post actualizado correctamente"});
     } catch (err) {
@@ -100,7 +100,7 @@ const deletePost = async (req, res, next) => {
         
         const [result] = await Posts.deleteById(postId);
             if (result.affectedRows === 0) {
-                    return res.status(404).json({ error: "Error al borrar el post" });
+                    return res.status(500).json({ error: "Error al borrar el post" });
         }
         res.json({ message: "Post eliminado correctamente "})
         

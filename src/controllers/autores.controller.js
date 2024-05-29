@@ -20,11 +20,11 @@ const getAuthorById = async (req, res, next) => {
     try {
         //req.params: datos dinamicos de la url (id);
         const [result] = await Autores.selectById(req.params.autor_id);
-        if (result.length === 0) {
-        return res.status(404).json({
-            error: "Autor no encontrado"
-            })
-        }
+            if (result.length === 0) {
+            return res.status(404).json({
+                error: "Autor no encontrado"
+                })
+            }
         res.json(result[0]);
     } catch (err) {
         next(err);
@@ -36,7 +36,22 @@ const getAuthorById = async (req, res, next) => {
 // Crear un nuevo autor:
 const createAuthor = async (req, res, next) => {
     try {
+        const { nombre, email, imagen } = req.body;
+
+        // Verifica que todos los campos estén completos:
+        if (!nombre || !email || !imagen) {
+            return res.status(400).json({ error: "Todos los campos son obligatorios" });
+        }
+        // Validación para evitar duplicación:
+        const [authorExists] = await Autores.selectByEmail(email);
+            if (authorExists.length > 0) {
+                return res.status(409).json({ error: "El autor ya existe" });
+            }
+
         const [result] = await Autores.insert(req.body);
+            if (result.affectedRows === 0) {
+                return res.status(500).json({ error: "Error al crear el autor" });
+            }
         // Res: Datos del nuevo autor:
         const [[newAuthor]] = await Autores.selectById(result.insertId);
         res.json(newAuthor);
@@ -54,9 +69,9 @@ const updateAuthor = async (req, res, next) => {
         const { nombre, email, imagen } = req.body;
 
         const [result] = await Autores.updateById( nombre, email, imagen, req.params.autor_id);
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ error: "Error al actualizar el autor" });
-        }
+            if (result.affectedRows === 0) {
+                return res.status(500).json({ error: "Error al actualizar el autor" });
+            }
         res.json({ message: "Autor actualizado correctamente" });
     } catch (err) {
         next(err);
@@ -68,7 +83,7 @@ const deleteAuthor = async (req, res, next) => {
     try {
         const [result] = await Autores.deleteById(req.params.autor_id);
             if (result.affectedRows === 0) {
-                return res.status(404).json({ error: "Error al borrar el autor" });
+                return res.status(500).json({ error: "Error al borrar el autor" });
             }
         res.json({ message: "Autor eliminado correctamente" });
     } catch (err) {

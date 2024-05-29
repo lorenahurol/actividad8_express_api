@@ -11,9 +11,9 @@ POST {{HOST}}/api/autores
 Content-Type: application/json
 
 {
-    "nombre": "Isabel Jimenez",
-    "email": "isabeljimenez@gmail.com",
-    "imagen": "http://imagen/profile10.com"
+    "nombre": "Clara Ramos",
+    "email": "clararamos@gmail.com",
+    "imagen": "http://imagen/profile15.com"
 
 }
 
