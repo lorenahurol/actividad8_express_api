@@ -3,6 +3,8 @@
 // Importar el modelo de Posts:
 const Posts = require("../models/posts.model");
 
+// --- OBTENCIÓN ---
+// Obtener todos los posts:
 const getAllPosts = async (req, res, next) => {
     try {
         const [result] = await Posts.selectAll();
@@ -42,6 +44,8 @@ const getPostsByAuthor = async (req, res, next) => {
     }
 }
 
+// --- CREACIÓN ---
+// Crear un nuevo post:
 const createPost = async (req, res, next) => {
     try {
         // Extraer los datos necesarios de req.body:
@@ -57,10 +61,54 @@ const createPost = async (req, res, next) => {
         res.json(newPost);
     } catch (err) {
         next(err);
+    }  
+}
+
+// --- Extras para CRUD completo - ACTUALIZACIÓN Y BORRADO ---
+// Actualizar un post:
+const updatePost = async (req, res, next) => {
+    try {
+        const { titulo, descripcion, categoria } = req.body;
+        const postId = req.params.post_id;
+
+        // Comprobar que el post existe:
+        const [postExists] = await Posts.selectById(postId);
+            if (!postExists) {
+                return res.status(404).json({ error: "No se encontró el post indicado" });   
+                }
+
+        const [result] = await Posts.updateById(titulo, descripcion, categoria, postId);
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ error: "Error al actualizar el post" });
+            }
+        res.json({ message: "Post actualizado correctamente"});
+    } catch (err) {
+        next(err);
     }
-    
+}
+
+// Eliminar un post:
+const deletePost = async (req, res, next) => {
+    try {
+        const postId = req.params.post_id;
+
+        // Comprobar que el post existe:
+        const [postExists] = await Posts.selectById(postId);
+            if (!postExists) {
+                return res.status(404).json({ error: "No se encontró el post indicado" });   
+            }
+        
+        const [result] = await Posts.deleteById(postId);
+            if (result.affectedRows === 0) {
+                    return res.status(404).json({ error: "Error al borrar el post" });
+        }
+        res.json({ message: "Post eliminado correctamente "})
+        
+    } catch (err) {
+        next(err);
+    }
 }
 
 module.exports = {
-    getAllPosts, createPost, getPostById, getPostsByAuthor
+    getAllPosts, createPost, getPostById, getPostsByAuthor, updatePost, deletePost
 }

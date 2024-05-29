@@ -30,18 +30,16 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{HOST}}/api/autores/7
+DELETE {{HOST}}/api/autores/10
 
 ### ------------------------------------------------------- ###
 
 ### POSTS: Obtención y Creación
 GET {{HOST}}/api/posts
 ###
-GET {{HOST}}/api/posts/1
-Content-Type: application/json
+GET {{HOST}}/api/posts/2
 ###
-GET {{HOST}}/api/posts/autores/2
-Content-Type: application/json
+GET {{HOST}}/api/posts/autores/3
 ###
 POST {{HOST}}/api/posts
 Content-Type: application/json
@@ -50,6 +48,19 @@ Content-Type: application/json
     "titulo": "Filosofía Moderna",
     "descripcion": "Debatiendo ideas filosóficas que están formando la sociedad actual.",
     "categoria": "Filosofía",
-    "autor": "Isabel Jimenez",
-    "FK_autor_id": 10
+    "autor": "Ana Morales",
+    "FK_autor_id": 3
 }
+
+###
+PUT {{HOST}}/api/posts/5
+Content-Type: application/json
+
+{
+    "titulo": "Moda Sostenible: Tendencias actuales",
+    "descripcion": "Explorando las últimas tendencias en moda sostenible y su impacto en el medio ambiente.",
+    "categoria": "Moda"
+}
+
+###
+DELETE {{HOST}}/api/posts/18
