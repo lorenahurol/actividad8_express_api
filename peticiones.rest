@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
     "nombre": "Clara Ramos",
-    "email": "clararamos@gmail.com",
+    "email": "clara2@gmail.com",
     "imagen": "http://imagen/profile15.com"
 
 }
@@ -48,8 +48,7 @@ Content-Type: application/json
     "titulo": "Filosofía Moderna",
     "descripcion": "Debatiendo ideas filosóficas que están formando la sociedad actual.",
     "categoria": "Filosofía",
-    "autor": "Ana Morales",
-    "FK_autor_id": 3
+    "FK_autor_id": 5
 }
 
 ###

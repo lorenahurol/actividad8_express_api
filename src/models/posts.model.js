@@ -46,6 +46,11 @@ const selectByAuthorId = (autorId) => {
 
 }
 
+// Extra: selectByTitleAndAuthor para validacion (evitar insertar posts duplicados):
+const selectByTitleAndAuthor = (postTitle, autorId) => {
+    return db.query("SELECT * FROM posts WHERE titulo = ? AND FK_autor_id = ?", [postTitle, autorId]);
+}
+
 // Crear Post:
 const insert = ({ titulo, descripcion, categoria, FK_autor_id }) => {
     return db.query(`
@@ -72,6 +77,6 @@ const deleteById = (postId) => {
 
 // Exports:
 module.exports = {
-    selectAll, selectById, selectByAuthorId, insert, updateById, deleteById
+    selectAll, selectById, selectByAuthorId, selectByTitleAndAuthor, insert, updateById, deleteById
 }
     

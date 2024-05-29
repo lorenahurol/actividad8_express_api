@@ -50,6 +50,18 @@ const createPost = async (req, res, next) => {
     try {
         // Extraer los datos necesarios de req.body:
         const { titulo, descripcion, categoria, FK_autor_id } = req.body;
+
+        // Verifica que todos los campos estén completos:
+        if (!titulo || !descripcion || !categoria || !FK_autor_id) {
+            return res.status(400).json({ error: "Todos los campos son obligatorios" });
+        }
+
+        // Validación para evitar duplicados:
+        const [postExists] = await Posts.selectByTitleAndAuthor(titulo, FK_autor_id);
+            if (postExists.length > 0) {
+                return res.status(409).json({ error: "Ya existe un post con ese título y autor" });
+            }
+       
         const [result] = await Posts.insert({ titulo, descripcion, categoria, FK_autor_id });
             if (result.affectedRows === 0) {
                 return res.status(500).json({
@@ -71,12 +83,6 @@ const updatePost = async (req, res, next) => {
         const { titulo, descripcion, categoria } = req.body;
         const postId = req.params.post_id;
 
-        // Comprobar que el post existe:
-        const [postExists] = await Posts.selectById(postId);
-            if (!postExists) {
-                return res.status(404).json({ error: "No se encontró el post indicado" });   
-                }
-
         const [result] = await Posts.updateById(titulo, descripcion, categoria, postId);
             if (result.affectedRows === 0) {
                 return res.status(500).json({ error: "Error al actualizar el post" });
@@ -92,15 +98,9 @@ const deletePost = async (req, res, next) => {
     try {
         const postId = req.params.post_id;
 
-        // Comprobar que el post existe:
-        const [postExists] = await Posts.selectById(postId);
-            if (!postExists) {
-                return res.status(404).json({ error: "No se encontró el post indicado" });   
-            }
-        
         const [result] = await Posts.deleteById(postId);
             if (result.affectedRows === 0) {
-                    return res.status(500).json({ error: "Error al borrar el post" });
+                    return res.status(404).json({ error: "No se encontró el post indicado para eliminar" });
         }
         res.json({ message: "Post eliminado correctamente "})
         
