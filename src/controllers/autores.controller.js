@@ -45,7 +45,7 @@ const createAuthor = async (req, res, next) => {
         // Validación para evitar duplicación:
         const [authorExists] = await Autores.selectByEmail(email);
             if (authorExists.length > 0) {
-                return res.status(409).json({ error: "El autor ya existe" });
+                return res.status(409).json({ error: "Error al crear el autor" });
             }
 
         const [result] = await Autores.insert(req.body);

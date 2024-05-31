@@ -8,7 +8,7 @@ const { getAllPosts, getPostById, getPostsByAuthor, createPost, updatePost, dele
 router.get("/", getAllPosts);
 router.get("/:post_id", getPostById);
 // Url para obtener los posts de un autor en concreto:
-router.get("/autores/:autor_id", getPostsByAuthor);
+router.get("/autor/:autor_id", getPostsByAuthor);
 router.post("/", createPost);
 
 // Extra: rutas para actualización y borrado:

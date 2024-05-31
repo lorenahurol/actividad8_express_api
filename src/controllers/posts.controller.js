@@ -59,7 +59,7 @@ const createPost = async (req, res, next) => {
         // Validación para evitar duplicados:
         const [postExists] = await Posts.selectByTitleAndAuthor(titulo, FK_autor_id);
             if (postExists.length > 0) {
-                return res.status(409).json({ error: "Ya existe un post con ese título y autor" });
+                return res.status(409).json({ error: "Error al crear el post. Prueba con un título o autor diferente" });
             }
        
         const [result] = await Posts.insert({ titulo, descripcion, categoria, FK_autor_id });
